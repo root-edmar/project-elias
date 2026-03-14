@@ -1,0 +1,14 @@
+{
+  "name": "baby-elias-library",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Baby Elias' First Library - public and admin pages",
+  "scripts": {
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "latest",
+    "jsdom": "latest"
+  }
+}
+
