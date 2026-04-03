@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Guess Baby Elias' Name</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito:wght@400;600;700&family=Parisienne&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #fbf8f2;
+        --bg-soft: #fffdf8;
+        --card: rgba(255, 255, 255, 0.88);
+        --line: #ebe4d9;
+        --line-soft: #f2ede4;
+        --text-main: #23201f;
+        --text-muted: #7d746d;
+        --blue: #cfe8ef;
+        --blue-deep: #8fbecb;
+        --gold: #d7b253;
+        --gold-soft: #f6ecd0;
+        --blush: #f3d7d7;
+        --danger: #b65555;
+        --success: #3f7b5e;
+        --shadow-soft: 0 20px 50px rgba(89, 75, 58, 0.08);
+        --radius-xl: 30px;
+        --radius-lg: 22px;
+        --radius-md: 16px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 24px 14px 40px;
+        font-family: "Nunito", system-ui, sans-serif;
+        color: var(--text-main);
+        background:
+          radial-gradient(circle at 10% 10%, rgba(244, 235, 220, 0.9), transparent 18%),
+          radial-gradient(circle at 90% 12%, rgba(210, 232, 239, 0.8), transparent 16%),
+          radial-gradient(circle at 12% 85%, rgba(247, 232, 191, 0.55), transparent 14%),
+          linear-gradient(to bottom, #fcfaf6, #f7f3ec);
+      }
+
+      .shell {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        overflow: hidden;
+        padding: 26px 16px 30px;
+        border-radius: 34px;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.9),
+          rgba(255, 253, 248, 0.95)
+        );
+        border: 1px solid rgba(233, 225, 213, 0.85);
+        box-shadow: 0 30px 80px rgba(109, 91, 71, 0.12);
+      }
+
+      @media (min-width: 760px) {
+        .shell {
+          padding: 34px 34px 36px;
+        }
+      }
+
+      .sky {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .cloud {
+        position: absolute;
+        background: rgba(242, 236, 229, 0.95);
+        border-radius: 999px;
+        filter: blur(0.3px);
+        box-shadow: inset 0 -10px 24px rgba(225, 214, 203, 0.4);
+      }
+
+      .cloud::before,
+      .cloud::after {
+        content: "";
+        position: absolute;
+        background: inherit;
+        border-radius: inherit;
+      }
+
+      .cloud--1 {
+        top: 28px;
+        left: -28px;
+        width: 150px;
+        height: 58px;
+      }
+
+      .cloud--1::before {
+        width: 72px;
+        height: 72px;
+        left: 18px;
+        top: -24px;
+      }
+
+      .cloud--1::after {
+        width: 86px;
+        height: 86px;
+        right: 18px;
+        top: -32px;
+      }
+
+      .cloud--2 {
+        top: 68px;
+        right: 96px;
+        width: 88px;
+        height: 34px;
+        opacity: 0.9;
+      }
+
+      .cloud--2::before {
+        width: 42px;
+        height: 42px;
+        left: 12px;
+        top: -14px;
+      }
+
+      .cloud--2::after {
+        width: 48px;
+        height: 48px;
+        right: 10px;
+        top: -18px;
+      }
+
+      .cloud--3 {
+        bottom: 84px;
+        right: -24px;
+        width: 136px;
+        height: 52px;
+        opacity: 0.85;
+      }
+
+      .cloud--3::before {
+        width: 62px;
+        height: 62px;
+        left: 18px;
+        top: -20px;
+      }
+
+      .cloud--3::after {
+        width: 78px;
+        height: 78px;
+        right: 12px;
+        top: -28px;
+      }
+
+      .cloud--4 {
+        bottom: 124px;
+        left: 28px;
+        width: 84px;
+        height: 30px;
+        opacity: 0.85;
+      }
+
+      .cloud--4::before {
+        width: 36px;
+        height: 36px;
+        left: 10px;
+        top: -12px;
+      }
+
+      .cloud--4::after {
+        width: 42px;
+        height: 42px;
+        right: 10px;
+        top: -16px;
+      }
+
+      .star {
+        position: absolute;
+        color: var(--gold);
+        font-size: 22px;
+        opacity: 0.92;
+        text-shadow: 0 3px 10px rgba(215, 178, 83, 0.22);
+      }
+
+      .star--1 {
+        top: 40px;
+        left: 61%;
+        transform: rotate(10deg);
+      }
+
+      .star--2 {
+        top: 104px;
+        right: 64px;
+        font-size: 18px;
+      }
+
+      .star--3 {
+        bottom: 126px;
+        left: 48px;
+        font-size: 34px;
+        transform: rotate(-18deg);
+      }
+
+      .sparkles {
+        position: absolute;
+        top: 36px;
+        right: 22px;
+        color: rgba(215, 178, 83, 0.7);
+        font-size: 15px;
+        letter-spacing: 5px;
+      }
+
+      .hero {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 52px 12px 22px;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        font-size: 0.78rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(3rem, 8vw, 5.5rem);
+        line-height: 0.92;
+        letter-spacing: 0.01em;
+        font-weight: 600;
+      }
+
+      .hero-script {
+        margin: 10px 0 14px;
+        font-family: "Parisienne", cursive;
+        font-size: clamp(2.3rem, 6vw, 4.4rem);
+        line-height: 1;
+        color: #252322;
+      }
+
+      .hero-subtitle {
+        margin: 10px 0 14px;
+        font-family: "Nunito", system-ui, sans-serif;
+        font-size: clamp(1.55rem, 4.4vw, 2.5rem);
+        line-height: 1.15;
+        font-weight: 700;
+        color: #252322;
+      }
+
+      .hero-copy {
+        max-width: 610px;
+        margin: 0 auto;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #625a54;
+      }
+
+      .divider {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 28px 0 22px;
+        color: var(--text-muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--line), transparent);
+      }
+
+      #guess-section {
+        position: relative;
+        z-index: 1;
+        margin: 0 auto 24px;
+        max-width: 760px;
+        padding: 20px 18px 16px;
+        border-radius: 28px;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.88),
+          rgba(250, 246, 240, 0.95)
+        );
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(2rem, 4vw, 2.7rem);
+        font-weight: 600;
+        line-height: 1;
+      }
+
+      .chip {
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        color: #93743a;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .small-hint {
+        margin: 0 0 14px;
+        color: var(--text-muted);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      form {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      @media (min-width: 760px) {
+        form {
+          grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto;
+          align-items: end;
+        }
+      }
+
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 13px 14px;
+        border-radius: 14px;
+        border: 1px solid #e4ddd2;
+        background: rgba(255, 255, 255, 0.95);
+        font: inherit;
+        color: var(--text-main);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      }
+
+      input[type="text"]::placeholder {
+        color: #b2a79a;
+      }
+
+      input[type="text"]:focus {
+        outline: none;
+        background: #fff;
+        border-color: #cbb98b;
+        box-shadow: 0 0 0 4px rgba(215, 178, 83, 0.12);
+      }
+
+      button[type="submit"] {
+        border: none;
+        cursor: pointer;
+        border-radius: 999px;
+        font-family: inherit;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        padding: 13px 18px;
+        color: #5f4b24;
+        background: linear-gradient(135deg, #f4dfab, #e9c978);
+        box-shadow: 0 12px 26px rgba(220, 190, 116, 0.28);
+        white-space: nowrap;
+      }
+
+      button[type="submit"]:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.02);
+      }
+
+      button[type="submit"]:active {
+        transform: translateY(0);
+      }
+
+      .message {
+        min-height: 1.3em;
+        margin-top: 12px;
+        font-size: 0.92rem;
+      }
+
+      .message--error {
+        color: var(--danger);
+      }
+
+      .message--success {
+        color: var(--success);
+      }
+
+      .footer-note {
+        position: relative;
+        z-index: 1;
+        margin-top: 18px;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      .footer-note strong {
+        color: #5a514b;
+      }
+
+      @media (max-width: 640px) {
+        .section-title {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero {
+          padding-top: 70px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="shell">
+      <div class="sky" aria-hidden="true">
+        <div class="cloud cloud--1"></div>
+        <div class="cloud cloud--2"></div>
+        <div class="cloud cloud--3"></div>
+        <div class="cloud cloud--4"></div>
+        <div class="star star--1">★</div>
+        <div class="star star--2">★</div>
+        <div class="star star--3">★</div>
+        <div class="sparkles">✦ ✦ ✦</div>
+      </div>
+
+      <header class="hero">
+        <p class="eyebrow">Baby Elias ???????? </p>
+        <h1>Figured it out?</h1>
+        <div class="hero-subtitle">Send us your guess</div>
+        <p class="hero-copy">
+          Leave your best guess below. We’ll keep them safe until the big reveal.
+        </p>
+      </header>
+
+      <div class="divider">A little secret between friends</div>
+
+      <section id="guess-section">
+        <div class="section-title">
+          <h2>Submit your guess</h2>
+          <span class="chip">Name guess</span>
+        </div>
+
+        <p class="small-hint">
+          Add your guess and your name so we know who to celebrate when the
+          reveal comes.
+        </p>
+
+        <form id="guess-form">
+          <div>
+            <label for="guess-name">Your guess *</label>
+            <input
+              id="guess-name"
+              name="guessName"
+              type="text"
+              required
+              maxlength="120"
+              placeholder="Type the name you think it is"
+            />
+          </div>
+
+          <div>
+            <label for="person-name">Your name *</label>
+            <input
+              id="person-name"
+              name="personName"
+              type="text"
+              required
+              maxlength="80"
+              placeholder="Your name"
+            />
+          </div>
+
+          <div>
+            <button type="submit">Send guess</button>
+          </div>
+        </form>
+
+        <div id="message" class="message" aria-live="polite"></div>
+      </section>
+
+      <p class="footer-note">
+        This is a private page just for our friends and family. Thank you for
+        being part of <strong>Baby Elias’</strong> story. 💛
+      </p>
+    </main>
+
+    <script>
+      const GUESS_API_URL = "https://script.google.com/macros/s/AKfycbzQWgpNV-5PkXpX_JxaUpGWh3ay6W8zmSbQTfYvoGOLOEy1t4nYl4gEJz0u7uQvomUu/exec";
+
+      const STORAGE_KEY_PERSON_NAME = "elias_guess_person_name";
+
+      const messageEl = document.getElementById("message");
+      const formEl = document.getElementById("guess-form");
+      const submitButton = formEl.querySelector('button[type="submit"]');
+
+      function setMessage(text, type = "info") {
+        messageEl.textContent = text || "";
+        messageEl.className = "message";
+        if (!text) return;
+        if (type === "error") {
+          messageEl.classList.add("message--error");
+        } else if (type === "success") {
+          messageEl.classList.add("message--success");
+        }
+      }
+
+      async function addGuessToSheet({ guess, person }) {
+        if (!GUESS_API_URL || GUESS_API_URL.startsWith("YOUR_APPS_SCRIPT")) {
+          throw new Error("Guess API URL not configured.");
+        }
+
+        let res;
+
+        try {
+          const body = new URLSearchParams({
+            action: "guess",
+            guess,
+            person: person || "",
+            timestamp: new Date().toISOString(),
+          });
+
+          res = await fetch(GUESS_API_URL, {
+            method: "POST",
+            body,
+          });
+        } catch (err) {
+          throw new Error(`Network error while calling Guess API: ${err.message}`);
+        }
+
+        const text = await res.text();
+
+        let data;
+        try {
+          data = text ? JSON.parse(text) : {};
+        } catch {
+          throw new Error(`Server returned invalid JSON: ${text.slice(0, 300)}`);
+        }
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status} ${res.statusText}`);
+        }
+
+        if (data.ok === false) {
+          throw new Error(data.error || "Unknown server error");
+        }
+
+        return data;
+      }
+
+      const savedPersonName = window.localStorage.getItem(STORAGE_KEY_PERSON_NAME);
+      if (savedPersonName) {
+        formEl.personName.value = savedPersonName;
+      }
+
+      formEl.personName.addEventListener("input", () => {
+        const value = formEl.personName.value.trim();
+        if (!value) {
+          window.localStorage.removeItem(STORAGE_KEY_PERSON_NAME);
+          return;
+        }
+        window.localStorage.setItem(STORAGE_KEY_PERSON_NAME, value);
+      });
+
+      formEl.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const guess = formEl.guessName.value.trim();
+        const person = formEl.personName.value.trim();
+
+        if (!guess || !person) {
+          setMessage("Please enter your guess and your name.", "error");
+          return;
+        }
+
+        window.localStorage.setItem(STORAGE_KEY_PERSON_NAME, person);
+
+        submitButton.disabled = true;
+        submitButton.style.opacity = "0.8";
+
+        try {
+          await addGuessToSheet({ guess, person });
+          setMessage("Thank you! Your guess has been saved.", "success");
+          formEl.guessName.value = "";
+          formEl.guessName.focus();
+        } catch (error) {
+          console.error("Error saving guess to sheet", error);
+          setMessage(
+            "Something went wrong saving your guess. Please try again in a moment. " +
+              error.message,
+            "error"
+          );
+        } finally {
+          submitButton.disabled = false;
+          submitButton.style.opacity = "1";
+        }
+      });
+    </script>
+  </body>
+</html>

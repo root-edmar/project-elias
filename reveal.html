@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Baby Elias Name Reveal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito:wght@400;600;700&family=Parisienne&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #fbf8f2;
+        --bg-soft: #fffdf8;
+        --card: rgba(255, 255, 255, 0.88);
+        --line: #ebe4d9;
+        --line-soft: #f2ede4;
+        --text-main: #23201f;
+        --text-muted: #7d746d;
+        --blue: #cfe8ef;
+        --blue-deep: #8fbecb;
+        --gold: #d7b253;
+        --gold-soft: #f6ecd0;
+        --blush: #f3d7d7;
+        --danger: #b65555;
+        --success: #3f7b5e;
+        --shadow-soft: 0 20px 50px rgba(89, 75, 58, 0.08);
+        --radius-xl: 30px;
+        --radius-lg: 22px;
+        --radius-md: 16px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 24px 14px 40px;
+        font-family: "Nunito", system-ui, sans-serif;
+        color: var(--text-main);
+        background:
+          radial-gradient(circle at 10% 10%, rgba(244, 235, 220, 0.9), transparent 18%),
+          radial-gradient(circle at 90% 12%, rgba(210, 232, 239, 0.8), transparent 16%),
+          radial-gradient(circle at 12% 85%, rgba(247, 232, 191, 0.55), transparent 14%),
+          linear-gradient(to bottom, #fcfaf6, #f7f3ec);
+      }
+
+      .shell {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        overflow: hidden;
+        padding: 26px 16px 30px;
+        border-radius: 34px;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.9),
+          rgba(255, 253, 248, 0.95)
+        );
+        border: 1px solid rgba(233, 225, 213, 0.85);
+        box-shadow: 0 30px 80px rgba(109, 91, 71, 0.12);
+      }
+
+      @media (min-width: 760px) {
+        .shell {
+          padding: 34px 34px 36px;
+        }
+      }
+
+      .sky {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .cloud {
+        position: absolute;
+        background: rgba(242, 236, 229, 0.95);
+        border-radius: 999px;
+        filter: blur(0.3px);
+        box-shadow: inset 0 -10px 24px rgba(225, 214, 203, 0.4);
+      }
+
+      .cloud::before,
+      .cloud::after {
+        content: "";
+        position: absolute;
+        background: inherit;
+        border-radius: inherit;
+      }
+
+      .cloud--1 {
+        top: 28px;
+        left: -28px;
+        width: 150px;
+        height: 58px;
+      }
+
+      .cloud--1::before {
+        width: 72px;
+        height: 72px;
+        left: 18px;
+        top: -24px;
+      }
+
+      .cloud--1::after {
+        width: 86px;
+        height: 86px;
+        right: 18px;
+        top: -32px;
+      }
+
+      .cloud--2 {
+        top: 68px;
+        right: 96px;
+        width: 88px;
+        height: 34px;
+        opacity: 0.9;
+      }
+
+      .cloud--2::before {
+        width: 42px;
+        height: 42px;
+        left: 12px;
+        top: -14px;
+      }
+
+      .cloud--2::after {
+        width: 48px;
+        height: 48px;
+        right: 10px;
+        top: -18px;
+      }
+
+      .cloud--3 {
+        bottom: 84px;
+        right: -24px;
+        width: 136px;
+        height: 52px;
+        opacity: 0.85;
+      }
+
+      .cloud--3::before {
+        width: 62px;
+        height: 62px;
+        left: 18px;
+        top: -20px;
+      }
+
+      .cloud--3::after {
+        width: 78px;
+        height: 78px;
+        right: 12px;
+        top: -28px;
+      }
+
+      .cloud--4 {
+        bottom: 124px;
+        left: 28px;
+        width: 84px;
+        height: 30px;
+        opacity: 0.85;
+      }
+
+      .cloud--4::before {
+        width: 36px;
+        height: 36px;
+        left: 10px;
+        top: -12px;
+      }
+
+      .cloud--4::after {
+        width: 42px;
+        height: 42px;
+        right: 10px;
+        top: -16px;
+      }
+
+      .star {
+        position: absolute;
+        color: var(--gold);
+        font-size: 22px;
+        opacity: 0.92;
+        text-shadow: 0 3px 10px rgba(215, 178, 83, 0.22);
+      }
+
+      .star--1 {
+        top: 40px;
+        left: 61%;
+        transform: rotate(10deg);
+      }
+
+      .star--2 {
+        top: 104px;
+        right: 64px;
+        font-size: 18px;
+      }
+
+      .star--3 {
+        bottom: 126px;
+        left: 48px;
+        font-size: 34px;
+        transform: rotate(-18deg);
+      }
+
+      .sparkles {
+        position: absolute;
+        top: 36px;
+        right: 22px;
+        color: rgba(215, 178, 83, 0.7);
+        font-size: 15px;
+        letter-spacing: 5px;
+      }
+
+      .hero {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 52px 12px 22px;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        font-size: 0.78rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(3rem, 8vw, 5.5rem);
+        line-height: 0.92;
+        letter-spacing: 0.01em;
+        font-weight: 600;
+      }
+
+      .hero-subtitle {
+        margin: 10px 0 14px;
+        font-family: "Nunito", system-ui, sans-serif;
+        font-size: clamp(1.55rem, 4.4vw, 2.5rem);
+        line-height: 1.15;
+        font-weight: 700;
+        color: #252322;
+      }
+
+      .hero-copy {
+        max-width: 610px;
+        margin: 0 auto;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #625a54;
+      }
+
+      .divider {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 28px 0 22px;
+        color: var(--text-muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--line), transparent);
+      }
+
+      .panel {
+        position: relative;
+        z-index: 1;
+        margin: 0 auto 18px;
+        max-width: 820px;
+        padding: 20px 18px 14px;
+        border-radius: 28px;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.88),
+          rgba(250, 246, 240, 0.95)
+        );
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(2rem, 4vw, 2.7rem);
+        font-weight: 600;
+        line-height: 1;
+      }
+
+      .chip {
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        color: #93743a;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .small-hint {
+        margin: 0 0 14px;
+        color: var(--text-muted);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .list-card {
+        padding: 18px 18px 10px;
+        border-radius: 30px;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.88),
+          rgba(252, 248, 242, 0.94)
+        );
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+        color: var(--text-muted);
+        font-size: 0.92rem;
+      }
+
+      .count-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: #f5efe3;
+        color: #7d6641;
+        font-size: 0.84rem;
+        font-weight: 700;
+      }
+
+      .action-button {
+        border: none;
+        cursor: pointer;
+        border-radius: 999px;
+        font-family: inherit;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        padding: 11px 16px;
+        color: #5f4b24;
+        background: linear-gradient(135deg, #f4dfab, #e9c978);
+        box-shadow: 0 12px 26px rgba(220, 190, 116, 0.28);
+        white-space: nowrap;
+      }
+
+      .action-button:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.02);
+      }
+
+      .action-button:active {
+        transform: translateY(0);
+      }
+
+      .action-button--reveal {
+        color: #fff;
+        background: linear-gradient(135deg, #7fb8c7, #8f6dd7);
+        box-shadow: 0 16px 34px rgba(122, 118, 205, 0.3);
+      }
+
+      .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        padding: 4px 0 2px;
+      }
+
+      .reveal-panel {
+        border: 1px solid rgba(143, 110, 215, 0.35);
+        background: radial-gradient(
+            circle at 30% 20%,
+            rgba(143, 110, 215, 0.18),
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 70% 5%,
+            rgba(127, 184, 199, 0.2),
+            transparent 50%
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.92),
+            rgba(252, 248, 242, 0.96)
+          );
+      }
+
+      .reveal-name {
+        margin: 10px 0 6px;
+        text-align: center;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(3.2rem, 10vw, 6.2rem);
+        line-height: 0.92;
+        letter-spacing: 0.02em;
+        color: #2a2633;
+      }
+
+      .reveal-intro {
+        margin: 8px 0 8px;
+        text-align: center;
+        font-size: 0.95rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        font-weight: 800;
+      }
+
+      .reveal-emphasis {
+        color: #6a4fd7;
+        text-shadow: 0 12px 30px rgba(106, 79, 215, 0.18);
+      }
+
+      .leaderboard-title {
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1.8rem;
+        line-height: 1.05;
+        font-weight: 600;
+      }
+
+      .reveal-actions {
+        display: flex;
+        justify-content: center;
+        padding: 6px 0 2px;
+      }
+
+      .reveal-panel--live {
+        animation: revealPop 700ms ease both;
+      }
+
+      @keyframes revealPop {
+        0% {
+          transform: translateY(12px) scale(0.98);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+      }
+
+      .list {
+        list-style: none;
+        margin: 0;
+        padding: 4px 0 0;
+      }
+
+      .item {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 14px 2px;
+        border-bottom: 1px dashed var(--line);
+      }
+
+      .item:last-child {
+        border-bottom: none;
+      }
+
+      .item-icon {
+        flex: 0 0 auto;
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #edf6f8, #f8f0df);
+        font-size: 1rem;
+      }
+
+      .item-main {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .guess-title {
+        margin: 0 0 6px;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 1.7rem;
+        line-height: 1.05;
+        font-weight: 600;
+      }
+
+      .meta-line {
+        margin: 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.55;
+      }
+
+      .meta-line span {
+        color: #6b8fa0;
+        font-weight: 700;
+      }
+
+      .message {
+        min-height: 1.3em;
+        margin-top: 12px;
+        font-size: 0.92rem;
+      }
+
+      .message--error {
+        color: var(--danger);
+      }
+
+      .message--success {
+        color: var(--success);
+      }
+
+      .footer-note {
+        position: relative;
+        z-index: 1;
+        margin-top: 18px;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      .footer-note strong {
+        color: #5a514b;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      @media (min-width: 760px) {
+        .stat-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .stat-card {
+        padding: 18px 18px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid var(--line-soft);
+      }
+
+      .stat-kicker {
+        margin: 0 0 6px;
+        font-size: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .stat-value {
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 3.1rem;
+        line-height: 1;
+        font-weight: 600;
+      }
+
+      .stat-sub {
+        margin: 6px 0 0;
+        color: var(--text-muted);
+        font-size: 1.12rem;
+        line-height: 1.6;
+      }
+
+      .stat-line {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 1.12rem;
+        line-height: 1.6;
+      }
+
+      .stat-line strong {
+        display: block;
+        margin-top: 8px;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 2.35rem;
+        line-height: 1.05;
+        font-weight: 600;
+        color: #2a2633;
+      }
+
+      .stat-line em {
+        display: block;
+        margin-top: 6px;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 2.15rem;
+        line-height: 1.08;
+        font-weight: 600;
+        font-style: normal;
+        color: #2a2633;
+      }
+
+      @media (max-width: 640px) {
+        .section-title {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero {
+          padding-top: 70px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="shell">
+      <div class="sky" aria-hidden="true">
+        <div class="cloud cloud--1"></div>
+        <div class="cloud cloud--2"></div>
+        <div class="cloud cloud--3"></div>
+        <div class="cloud cloud--4"></div>
+        <div class="star star--1">★</div>
+        <div class="star star--2">★</div>
+        <div class="star star--3">★</div>
+        <div class="sparkles">✦ ✦ ✦</div>
+      </div>
+
+      <header class="hero">
+        <p class="eyebrow">Baby Elias</p>
+        <h1>The wait is over</h1>
+        <div class="hero-subtitle">time for the big reveal!!</div>
+        <p class="hero-copy">
+          From wild guesses to perfect intuition—here is how the mystery unfolded.
+        </p>
+      </header>
+
+      <div class="divider">A secret shelf of guesses</div>
+
+      <section class="panel">
+        <div class="section-title">
+          <h2>Explore</h2>
+          <span class="chip">Pick a moment</span>
+        </div>
+
+        <p class="small-hint" style="text-align: center; margin-bottom: 16px;">
+          Choose what you want to reveal first.
+        </p>
+
+        <div class="action-row">
+          <button id="show-totals" class="action-button" type="button">
+            Quick stats
+          </button>
+          <button id="show-popular" class="action-button" type="button">
+            Top guesses
+          </button>
+          <button id="show-timeline" class="action-button" type="button">
+            Timeline
+          </button>
+          <button id="show-unique" class="action-button" type="button">
+            Show unique guesses
+          </button>
+          <button
+            id="show-reveal"
+            class="action-button action-button--reveal"
+            type="button"
+          >
+            Do the reveal
+          </button>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="totals-panel">
+        <div class="section-title">
+          <h2>Quick stats</h2>
+          <span class="chip">Snapshot</span>
+        </div>
+
+        <p class="small-hint">
+          A quick look at how much fun everyone has had guessing.
+        </p>
+
+        <div class="list-card">
+          <div class="stat-grid">
+            <div class="stat-card">
+              <p class="stat-kicker">Total guesses</p>
+              <p class="stat-value" id="stat-total">0</p>
+              <p class="stat-sub">Every guess that’s been submitted.</p>
+            </div>
+
+            <div class="stat-card">
+              <p class="stat-kicker">Unique guessers</p>
+              <p class="stat-value" id="stat-unique">0</p>
+              <p class="stat-sub">How many different people joined in.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="popular-panel">
+        <div class="section-title">
+          <h2>Most popular guesses</h2>
+          <span class="chip">Top 5</span>
+        </div>
+
+        <p class="small-hint">
+          The five names guessed by the most unique people.
+        </p>
+
+        <div class="list-card">
+          <ul id="popular-list" class="list" aria-live="polite"></ul>
+          <div id="popular-empty" class="meta-line" style="padding: 18px 4px;">
+            No guesses yet.
+          </div>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="timeline-panel">
+        <div class="section-title">
+          <h2>Timeline</h2>
+          <span class="chip">Moments</span>
+        </div>
+
+        <p class="small-hint">
+          The very first guess — and when someone first got it right.
+        </p>
+
+        <div class="list-card">
+          <div class="stat-grid">
+            <div class="stat-card">
+              <p class="stat-kicker">First guess</p>
+              <p class="stat-line" id="stat-first">—</p>
+            </div>
+
+            <div class="stat-card">
+              <p class="stat-kicker">Earliest correct guess</p>
+              <p class="stat-line" id="stat-correct">—</p>
+              <p class="stat-sub" id="stat-delta"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="unique-panel">
+        <div class="section-title">
+          <h2>All unique guesses</h2>
+          <span class="chip">Grouped</span>
+        </div>
+
+        <p class="small-hint">
+          Each name below is shown once, along with everyone who guessed it.
+        </p>
+
+        <div class="list-card">
+          <div class="list-header">
+            <span class="count-pill">
+              <span id="unique-guess-count">0</span>
+              <span>unique guesses</span>
+            </span>
+
+            <button id="refresh" class="action-button" type="button">Refresh</button>
+          </div>
+
+          <ul id="unique-list" class="list" aria-live="polite"></ul>
+
+          <div id="unique-empty" class="meta-line" style="padding: 18px 4px;">
+            No guesses yet.
+          </div>
+
+          <div id="message" class="message" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="panel reveal-panel hidden" id="reveal-panel">
+        <div class="section-title">
+          <h2>Reveal</h2>
+          <span class="chip">Winner list</span>
+        </div>
+
+        <div class="reveal-intro">We'd like to introduce</div>
+        <div class="reveal-name" id="reveal-name">
+          Baby Elias <span class="reveal-emphasis">Leon</span> Abraham
+        </div>
+
+        <div class="reveal-actions">
+          <button
+            id="show-winners"
+            class="action-button action-button--reveal"
+            type="button"
+          >
+            Show winners
+          </button>
+        </div>
+
+        <p class="small-hint">
+          A prestigious leaderboard of friends and family who trusted their
+          intuition.
+        </p>
+
+        <div class="list-card hidden" id="winner-card">
+          <div class="list-header">
+            <span class="count-pill">
+              <span id="winner-count">0</span>
+              <span>winners</span>
+            </span>
+          </div>
+
+          <ul id="winner-list" class="list" aria-live="polite"></ul>
+
+          <div id="honorable-block" class="hidden" style="padding-top: 8px;">
+            <div class="original-divider" style="margin: 8px 0 2px;">Honorable mentions</div>
+            <ul id="honorable-list" class="list" aria-live="polite"></ul>
+          </div>
+
+          <div id="winner-empty" class="meta-line" style="padding: 18px 4px;">
+            No one has guessed it correctly (yet).
+          </div>
+        </div>
+      </section>
+
+      <p class="footer-note">
+        This is a private page just for our friends and family. Thank you for
+        being part of <strong>Baby Elias’</strong> story. 💛
+      </p>
+    </main>
+
+    <script>
+      const GUESS_API_URL =
+        "https://script.google.com/macros/s/AKfycbzQWgpNV-5PkXpX_JxaUpGWh3ay6W8zmSbQTfYvoGOLOEy1t4nYl4gEJz0u7uQvomUu/exec";
+
+      const CORRECT_NAME = "leon";
+
+      const messageEl = document.getElementById("message");
+      const uniqueListEl = document.getElementById("unique-list");
+      const uniqueEmptyEl = document.getElementById("unique-empty");
+      const uniqueCountEl = document.getElementById("unique-guess-count");
+      const winnerListEl = document.getElementById("winner-list");
+      const winnerEmptyEl = document.getElementById("winner-empty");
+      const winnerCountEl = document.getElementById("winner-count");
+      const honorableBlockEl = document.getElementById("honorable-block");
+      const honorableListEl = document.getElementById("honorable-list");
+      const refreshButton = document.getElementById("refresh");
+      const uniquePanelEl = document.getElementById("unique-panel");
+      const revealPanelEl = document.getElementById("reveal-panel");
+      const showUniqueButton = document.getElementById("show-unique");
+      const showRevealButton = document.getElementById("show-reveal");
+      const showWinnersButton = document.getElementById("show-winners");
+      const winnerCardEl = document.getElementById("winner-card");
+      const totalsPanelEl = document.getElementById("totals-panel");
+      const popularPanelEl = document.getElementById("popular-panel");
+      const timelinePanelEl = document.getElementById("timeline-panel");
+      const showTotalsButton = document.getElementById("show-totals");
+      const showPopularButton = document.getElementById("show-popular");
+      const showTimelineButton = document.getElementById("show-timeline");
+      const statTotalEl = document.getElementById("stat-total");
+      const statUniqueEl = document.getElementById("stat-unique");
+      const popularListEl = document.getElementById("popular-list");
+      const popularEmptyEl = document.getElementById("popular-empty");
+      const statFirstEl = document.getElementById("stat-first");
+      const statCorrectEl = document.getElementById("stat-correct");
+      const statDeltaEl = document.getElementById("stat-delta");
+
+      let cachedGuesses = null;
+      let revealActive = false;
+      let winnersVisible = false;
+
+      function setMessage(text, type = "info") {
+        messageEl.textContent = text || "";
+        messageEl.className = "message";
+        if (!text) return;
+        if (type === "error") {
+          messageEl.classList.add("message--error");
+        } else if (type === "success") {
+          messageEl.classList.add("message--success");
+        }
+      }
+
+      function normalizeGuess(value) {
+        return (value || "")
+          .toString()
+          .trim()
+          .replace(/\s+/g, " ")
+          .toLowerCase();
+      }
+
+      function parseTimestamp(value) {
+        if (!value) return null;
+        const date = new Date(value);
+        return isNaN(date.getTime()) ? null : date;
+      }
+
+      function formatTimestamp(date, precision) {
+        if (!date) return "";
+
+        const optionsByPrecision = {
+          minute: {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          },
+          second: {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          },
+          ms: {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            fractionalSecondDigits: 3,
+          },
+        };
+
+        const options = optionsByPrecision[precision] || optionsByPrecision.minute;
+
+        try {
+          return new Intl.DateTimeFormat(undefined, options).format(date);
+        } catch {
+          return date.toLocaleString();
+        }
+      }
+
+      function chooseTimestampPrecision(dates) {
+        const result = new Map();
+
+        const minuteKey = (d) =>
+          d
+            ? `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}-${d.getHours()}-${d.getMinutes()}`
+            : "";
+        const secondKey = (d) =>
+          d
+            ? `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}-${d.getHours()}-${d.getMinutes()}-${d.getSeconds()}`
+            : "";
+        const msKey = (d) =>
+          d
+            ? `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}-${d.getHours()}-${d.getMinutes()}-${d.getSeconds()}-${d.getMilliseconds()}`
+            : "";
+
+        const minuteBuckets = new Map();
+        dates.forEach((d) => {
+          if (!d) return;
+          const key = minuteKey(d);
+          minuteBuckets.set(key, (minuteBuckets.get(key) || 0) + 1);
+        });
+
+        const secondBuckets = new Map();
+        dates.forEach((d) => {
+          if (!d) return;
+          const key = secondKey(d);
+          secondBuckets.set(key, (secondBuckets.get(key) || 0) + 1);
+        });
+
+        dates.forEach((d) => {
+          if (!d) return;
+          const mk = minuteKey(d);
+          if ((minuteBuckets.get(mk) || 0) <= 1) {
+            result.set(msKey(d), "minute");
+            return;
+          }
+
+          const sk = secondKey(d);
+          if ((secondBuckets.get(sk) || 0) <= 1) {
+            result.set(msKey(d), "second");
+            return;
+          }
+
+          result.set(msKey(d), "ms");
+        });
+
+        return (d) => result.get(msKey(d)) || "minute";
+      }
+
+      function escapeText(value) {
+        return (value || "").toString().replace(/</g, "&lt;");
+      }
+
+      function normalizePerson(value) {
+        return (value || "")
+          .toString()
+          .trim()
+          .replace(/\s+/g, " ")
+          .toLowerCase();
+      }
+
+      function renderTotals(guesses) {
+        const total = guesses.length;
+
+        const people = new Set();
+        guesses.forEach((row) => {
+          const person = normalizePerson(row.person);
+          if (person) people.add(person);
+        });
+
+        statTotalEl.textContent = total.toString();
+        statUniqueEl.textContent = people.size.toString();
+      }
+
+      function renderPopular(guesses) {
+        popularListEl.innerHTML = "";
+
+        const groups = new Map();
+
+        guesses.forEach((row) => {
+          const rawGuess = (row.guess || "").toString().trim();
+          const guessKey = normalizeGuess(rawGuess);
+          if (!guessKey) return;
+
+          const personKey = normalizePerson(row.person);
+          if (!personKey) return;
+
+          if (!groups.has(guessKey)) {
+            groups.set(guessKey, {
+              displayGuess: rawGuess,
+              people: new Set(),
+            });
+          }
+
+          groups.get(guessKey).people.add(personKey);
+        });
+
+        const items = Array.from(groups.entries()).map(([key, value]) => ({
+          key,
+          displayGuess: value.displayGuess,
+          count: value.people.size,
+        }));
+
+        items.sort((a, b) => {
+          if (b.count !== a.count) return b.count - a.count;
+          return a.key.localeCompare(b.key);
+        });
+
+        const top = items.slice(0, 5);
+
+        if (!top.length) {
+          popularEmptyEl.classList.remove("hidden");
+          return;
+        }
+
+        popularEmptyEl.classList.add("hidden");
+
+        top.forEach((item, index) => {
+          const li = document.createElement("li");
+          li.className = "item";
+
+          li.innerHTML = `
+            <div class="item-icon" aria-hidden="true">🔥</div>
+            <div class="item-main">
+              <p class="guess-title">#${index + 1} ${escapeText(item.displayGuess)}</p>
+              <p class="meta-line">Guessed by <span>${item.count}</span> people</p>
+            </div>
+          `;
+
+          popularListEl.appendChild(li);
+        });
+      }
+
+      function formatDuration(ms) {
+        if (typeof ms !== "number" || !isFinite(ms) || ms < 0) return "";
+
+        const totalSeconds = Math.floor(ms / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+
+        const parts = [];
+        if (days) parts.push(`${days} day${days === 1 ? "" : "s"}`);
+        if (hours) parts.push(`${hours} hour${hours === 1 ? "" : "s"}`);
+        if (minutes || !parts.length) parts.push(`${minutes} min`);
+
+        return parts.join(" ");
+      }
+
+      function renderTimeline(guesses) {
+        const rows = guesses
+          .map((row) => {
+            const guess = (row.guess || "").toString().trim();
+            const person = (row.person || "").toString().trim();
+            const timestamp = parseTimestamp(row.timestamp);
+            return { guess, person, timestamp };
+          })
+          .filter((row) => row.timestamp);
+
+        if (!rows.length) {
+          statFirstEl.textContent = "—";
+          statCorrectEl.textContent = "—";
+          statDeltaEl.textContent = "";
+          return;
+        }
+
+        rows.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
+        const first = rows[0];
+
+        const firstWho = `${first.person ? first.person + " — " : ""}${first.guess || ""}`.trim();
+        statFirstEl.innerHTML = `<em>${escapeText(
+          firstWho || "First submission"
+        )}</em><strong>${escapeText(formatTimestamp(first.timestamp, "minute"))}</strong>`;
+
+        const correct = rows.find((r) => normalizeGuess(r.guess) === CORRECT_NAME);
+        if (!correct) {
+          statCorrectEl.textContent = "—";
+          statDeltaEl.textContent = "";
+          return;
+        }
+
+        statCorrectEl.innerHTML = `First correct guess time<strong>${escapeText(
+          formatTimestamp(correct.timestamp, "minute")
+        )}</strong>`;
+
+        const deltaMs = correct.timestamp.getTime() - first.timestamp.getTime();
+        statDeltaEl.textContent = `Time from first guess to first correct guess: ${formatDuration(deltaMs)}`;
+      }
+
+      function resetRevealState() {
+        revealActive = false;
+        winnersVisible = false;
+        winnerCardEl.classList.add("hidden");
+      }
+
+      function hideAllPanels() {
+        totalsPanelEl.classList.add("hidden");
+        popularPanelEl.classList.add("hidden");
+        timelinePanelEl.classList.add("hidden");
+        uniquePanelEl.classList.add("hidden");
+        revealPanelEl.classList.add("hidden");
+        resetRevealState();
+      }
+
+      function renderUniqueGuesses(guesses) {
+        uniqueListEl.innerHTML = "";
+
+        const groups = new Map();
+
+        guesses.forEach((row) => {
+          const rawGuess = (row.guess || "").toString().trim();
+          const key = normalizeGuess(rawGuess);
+          if (!key) return;
+
+          const person = (row.person || "").toString().trim();
+
+          if (!groups.has(key)) {
+            groups.set(key, {
+              displayGuess: rawGuess,
+              people: [],
+              peopleKeys: new Set(),
+            });
+          }
+
+          if (person) {
+            const personKey = person.toLowerCase();
+            const group = groups.get(key);
+            if (!group.peopleKeys.has(personKey)) {
+              group.peopleKeys.add(personKey);
+              group.people.push(person);
+            }
+          }
+        });
+
+        const items = Array.from(groups.entries()).map(([key, value]) => ({
+          key,
+          displayGuess: value.displayGuess,
+          people: value.people,
+        }));
+
+        items.sort((a, b) => a.key.localeCompare(b.key));
+
+        uniqueCountEl.textContent = items.length.toString();
+
+        if (!items.length) {
+          uniqueEmptyEl.classList.remove("hidden");
+          return;
+        }
+
+        uniqueEmptyEl.classList.add("hidden");
+
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.className = "item";
+
+          const safeGuess = escapeText(item.displayGuess);
+          const safePeople = item.people
+            .map((p) => p.trim())
+            .filter(Boolean)
+            .join(", ");
+
+          li.innerHTML = `
+            <div class="item-icon" aria-hidden="true">📝</div>
+            <div class="item-main">
+              <p class="guess-title">${safeGuess}</p>
+              <p class="meta-line">Guessed by <span>${escapeText(
+                safePeople || "—"
+              )}</span></p>
+            </div>
+          `;
+
+          uniqueListEl.appendChild(li);
+        });
+      }
+
+      function renderWinners(guesses) {
+        winnerListEl.innerHTML = "";
+        honorableListEl.innerHTML = "";
+
+        const earliestByPerson = new Map();
+
+        guesses.forEach((row) => {
+          const guess = (row.guess || "").toString();
+          const guessKey = normalizeGuess(guess);
+          if (guessKey !== CORRECT_NAME) return;
+
+          const person = (row.person || "").toString().trim();
+          if (!person) return;
+
+          const personKey = person.toLowerCase();
+          const timestamp = parseTimestamp(row.timestamp);
+
+          if (!earliestByPerson.has(personKey)) {
+            earliestByPerson.set(personKey, {
+              guess,
+              person,
+              timestamp,
+            });
+            return;
+          }
+
+          const existing = earliestByPerson.get(personKey);
+
+          const existingTime = existing.timestamp ? existing.timestamp.getTime() : Infinity;
+          const nextTime = timestamp ? timestamp.getTime() : Infinity;
+
+          if (nextTime < existingTime) {
+            earliestByPerson.set(personKey, {
+              guess,
+              person,
+              timestamp,
+            });
+          }
+        });
+
+        const winners = Array.from(earliestByPerson.values());
+
+        winners.sort((a, b) => {
+          const at = a.timestamp ? a.timestamp.getTime() : 0;
+          const bt = b.timestamp ? b.timestamp.getTime() : 0;
+          return at - bt;
+        });
+
+        const pickPrecision = chooseTimestampPrecision(
+          winners.map((w) => w.timestamp).filter(Boolean)
+        );
+
+        winnerCountEl.textContent = winners.length.toString();
+
+        if (!winners.length) {
+          winnerEmptyEl.classList.remove("hidden");
+          honorableBlockEl.classList.add("hidden");
+          return;
+        }
+
+        winnerEmptyEl.classList.add("hidden");
+
+        const topWinners = winners.slice(0, 3);
+        const honorable = winners.slice(3);
+
+        topWinners.forEach((row, index) => {
+          const li = document.createElement("li");
+          li.className = "item";
+
+          const precision = row.timestamp ? pickPrecision(row.timestamp) : "minute";
+
+          const medal = index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉";
+          const placeLabel = index === 0 ? "Gold" : index === 1 ? "Silver" : "Bronze";
+
+          li.innerHTML = `
+            <div class="item-icon" aria-hidden="true">${medal}</div>
+            <div class="item-main">
+              <p class="guess-title">${escapeText(row.person)}</p>
+              <p class="meta-line"><span>${placeLabel}</span>${row.timestamp ? ` • ${escapeText(formatTimestamp(row.timestamp, precision))}` : ""}</p>
+            </div>
+          `;
+
+          winnerListEl.appendChild(li);
+        });
+
+        if (!honorable.length) {
+          honorableBlockEl.classList.add("hidden");
+          return;
+        }
+
+        honorableBlockEl.classList.remove("hidden");
+
+        honorable.forEach((row) => {
+          const li = document.createElement("li");
+          li.className = "item";
+
+          const precision = row.timestamp ? pickPrecision(row.timestamp) : "minute";
+
+          li.innerHTML = `
+            <div class="item-icon" aria-hidden="true">✨</div>
+            <div class="item-main">
+              <p class="guess-title">${escapeText(row.person)}</p>
+              <p class="meta-line">Honorable${row.timestamp ? ` • ${escapeText(formatTimestamp(row.timestamp, precision))}` : ""}</p>
+            </div>
+          `;
+
+          honorableListEl.appendChild(li);
+        });
+      }
+
+      async function loadGuesses() {
+        setMessage("", "info");
+
+        if (!GUESS_API_URL) {
+          setMessage("Guess API URL not configured.", "error");
+          return;
+        }
+
+        try {
+          const url = new URL(GUESS_API_URL);
+          url.searchParams.set("action", "listGuesses");
+
+          const res = await fetch(url.toString());
+          if (!res.ok) throw new Error("Bad response");
+
+          const data = await res.json();
+          const guesses = Array.isArray(data.guesses) ? data.guesses : [];
+
+          cachedGuesses = guesses;
+
+          if (!totalsPanelEl.classList.contains("hidden")) {
+            renderTotals(guesses);
+          }
+
+          if (!popularPanelEl.classList.contains("hidden")) {
+            renderPopular(guesses);
+          }
+
+          if (!timelinePanelEl.classList.contains("hidden")) {
+            renderTimeline(guesses);
+          }
+
+          if (!uniquePanelEl.classList.contains("hidden")) {
+            renderUniqueGuesses(guesses);
+          }
+
+          if (!revealPanelEl.classList.contains("hidden") && winnersVisible) {
+            renderWinners(guesses);
+          }
+        } catch (error) {
+          console.error("Error loading guesses", error);
+          setMessage(
+            "We couldn't load the guesses right now. Please try again shortly. " +
+              error.message,
+            "error"
+          );
+        }
+      }
+
+      refreshButton.addEventListener("click", loadGuesses);
+
+      showUniqueButton.addEventListener("click", async () => {
+        hideAllPanels();
+        uniquePanelEl.classList.remove("hidden");
+
+        if (!cachedGuesses) {
+          await loadGuesses();
+        } else {
+          renderUniqueGuesses(cachedGuesses);
+        }
+
+        uniquePanelEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      showRevealButton.addEventListener("click", async () => {
+        hideAllPanels();
+        revealPanelEl.classList.remove("hidden");
+        revealPanelEl.classList.add("reveal-panel--live");
+        revealActive = true;
+
+        window.setTimeout(() => {
+          revealPanelEl.classList.remove("reveal-panel--live");
+        }, 800);
+
+        if (!cachedGuesses) {
+          await loadGuesses();
+        }
+
+        revealPanelEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      showTotalsButton.addEventListener("click", async () => {
+        hideAllPanels();
+        totalsPanelEl.classList.remove("hidden");
+
+        if (!cachedGuesses) {
+          await loadGuesses();
+        } else {
+          renderTotals(cachedGuesses);
+        }
+
+        totalsPanelEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      showPopularButton.addEventListener("click", async () => {
+        hideAllPanels();
+        popularPanelEl.classList.remove("hidden");
+
+        if (!cachedGuesses) {
+          await loadGuesses();
+        } else {
+          renderPopular(cachedGuesses);
+        }
+
+        popularPanelEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      showTimelineButton.addEventListener("click", async () => {
+        hideAllPanels();
+        timelinePanelEl.classList.remove("hidden");
+
+        if (!cachedGuesses) {
+          await loadGuesses();
+        } else {
+          renderTimeline(cachedGuesses);
+        }
+
+        timelinePanelEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      showWinnersButton.addEventListener("click", async () => {
+        if (!revealActive) return;
+
+        winnersVisible = true;
+        winnerCardEl.classList.remove("hidden");
+
+        if (!cachedGuesses) {
+          await loadGuesses();
+        } else {
+          renderWinners(cachedGuesses);
+        }
+
+        winnerCardEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    </script>
+  </body>
+</html>
