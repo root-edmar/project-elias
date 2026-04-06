@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clues</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito:wght@400;600;700&family=Parisienne&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #fbf8f2;
+        --bg-soft: #fffdf8;
+        --card: rgba(255, 255, 255, 0.88);
+        --line: #ebe4d9;
+        --line-soft: #f2ede4;
+        --text-main: #23201f;
+        --text-muted: #7d746d;
+        --blue: #cfe8ef;
+        --blue-deep: #8fbecb;
+        --gold: #d7b253;
+        --gold-soft: #f6ecd0;
+        --blush: #f3d7d7;
+        --danger: #b65555;
+        --success: #3f7b5e;
+        --shadow-soft: 0 20px 50px rgba(89, 75, 58, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Nunito", system-ui, sans-serif;
+        color: var(--text-main);
+        scroll-snap-type: y mandatory;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(210, 232, 239, 0.55), transparent 22%),
+          radial-gradient(circle at 88% 10%, rgba(247, 232, 191, 0.6), transparent 18%),
+          radial-gradient(circle at 16% 86%, rgba(244, 235, 220, 0.85), transparent 16%),
+          linear-gradient(to bottom, #f8f2e7, #f6efe3);
+        background-attachment: fixed;
+      }
+
+      .shell {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 34px;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 253, 248, 0.82),
+          rgba(250, 245, 236, 0.92)
+        );
+        border: 1px solid rgba(233, 225, 213, 0.85);
+        box-shadow: 0 30px 80px rgba(109, 91, 71, 0.12);
+        min-height: 100vh;
+      }
+
+      @media (max-width: 980px) {
+        body {
+          padding: 0;
+        }
+
+        .shell {
+          border-radius: 0;
+          border-left: none;
+          border-right: none;
+          box-shadow: none;
+        }
+      }
+
+      .sky {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .cloud {
+        position: absolute;
+        background: rgba(242, 236, 229, 0.95);
+        border-radius: 999px;
+        filter: blur(0.3px);
+        box-shadow: inset 0 -10px 24px rgba(225, 214, 203, 0.4);
+        animation: floatCloud 10s ease-in-out infinite;
+      }
+
+      .cloud::before,
+      .cloud::after {
+        content: "";
+        position: absolute;
+        background: inherit;
+        border-radius: inherit;
+      }
+
+      .cloud--1 {
+        top: 28px;
+        left: -28px;
+        width: 150px;
+        height: 58px;
+        animation-duration: 13s;
+      }
+
+      .cloud--1::before {
+        width: 72px;
+        height: 72px;
+        left: 18px;
+        top: -24px;
+      }
+
+      .cloud--1::after {
+        width: 86px;
+        height: 86px;
+        right: 18px;
+        top: -32px;
+      }
+
+      .cloud--2 {
+        top: 68px;
+        right: 96px;
+        width: 88px;
+        height: 34px;
+        opacity: 0.9;
+        animation-duration: 15s;
+      }
+
+      .cloud--2::before {
+        width: 42px;
+        height: 42px;
+        left: 12px;
+        top: -14px;
+      }
+
+      .cloud--2::after {
+        width: 48px;
+        height: 48px;
+        right: 10px;
+        top: -18px;
+      }
+
+      .cloud--3 {
+        bottom: 84px;
+        right: -24px;
+        width: 136px;
+        height: 52px;
+        opacity: 0.85;
+        animation-duration: 17s;
+      }
+
+      .cloud--3::before {
+        width: 62px;
+        height: 62px;
+        left: 18px;
+        top: -20px;
+      }
+
+      .cloud--3::after {
+        width: 78px;
+        height: 78px;
+        right: 12px;
+        top: -28px;
+      }
+
+      .cloud--4 {
+        bottom: 124px;
+        left: 28px;
+        width: 84px;
+        height: 30px;
+        opacity: 0.85;
+        animation-duration: 14s;
+      }
+
+      @keyframes floatCloud {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        50% {
+          transform: translate3d(0, -10px, 0);
+        }
+        100% {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+
+      .cloud--4::before {
+        width: 36px;
+        height: 36px;
+        left: 10px;
+        top: -12px;
+      }
+
+      .cloud--4::after {
+        width: 42px;
+        height: 42px;
+        right: 10px;
+        top: -16px;
+      }
+
+      .star {
+        position: absolute;
+        color: var(--gold);
+        font-size: 22px;
+        opacity: 0.92;
+        text-shadow: 0 3px 10px rgba(215, 178, 83, 0.22);
+      }
+
+      .star--1 {
+        top: 40px;
+        left: 61%;
+        transform: rotate(10deg);
+      }
+
+      .star--2 {
+        top: 104px;
+        right: 64px;
+        font-size: 18px;
+      }
+
+      .star--3 {
+        bottom: 126px;
+        left: 48px;
+        font-size: 34px;
+        transform: rotate(-18deg);
+      }
+
+      .sparkles {
+        position: absolute;
+        top: 36px;
+        right: 22px;
+        color: rgba(215, 178, 83, 0.7);
+        font-size: 15px;
+        letter-spacing: 5px;
+      }
+
+      .header {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 58px 18px 22px;
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        inset: 18px 14px 0;
+        border-radius: 34px;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.72),
+          rgba(252, 246, 238, 0.55)
+        );
+        border: 1px solid rgba(233, 225, 213, 0.9);
+        box-shadow: 0 22px 60px rgba(109, 91, 71, 0.09);
+      }
+
+      @media (min-width: 760px) {
+        .header::before {
+          inset: 22px 26px 0;
+        }
+      }
+
+      .eyebrow {
+        position: relative;
+        margin: 0 0 10px;
+        font-size: 0.74rem;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: rgba(109, 98, 88, 0.88);
+      }
+
+      h1 {
+        position: relative;
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(2.35rem, 7.2vw, 4.35rem);
+        line-height: 1.02;
+        letter-spacing: 0.035em;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-shadow: 0 10px 28px rgba(35, 32, 31, 0.08);
+      }
+
+      .header-copy {
+        position: relative;
+        max-width: 620px;
+        margin: 16px auto 0;
+        padding: 16px 16px;
+        font-size: 1.02rem;
+        line-height: 1.75;
+        color: #5f5751;
+        background: rgba(255, 252, 246, 0.8);
+        border: 1px solid rgba(235, 228, 217, 0.95);
+        border-radius: 26px;
+      }
+
+      .elias-name {
+        display: inline-block;
+        font-family: "Parisienne", "Cormorant Garamond", Georgia, serif;
+        font-size: 1.22em;
+        color: #b4892f;
+        letter-spacing: 0.02em;
+        text-shadow: 0 10px 22px rgba(215, 178, 83, 0.18);
+      }
+
+      @media (min-width: 760px) {
+        .header-copy {
+          padding: 18px 22px;
+        }
+      }
+
+      .scroller {
+        position: relative;
+        z-index: 1;
+        padding: 6px 16px 28px;
+      }
+
+      @media (min-width: 760px) {
+        .scroller {
+          padding: 8px 34px 34px;
+        }
+      }
+
+      .clue {
+        scroll-snap-align: start;
+        min-height: 78vh;
+        display: grid;
+        align-content: center;
+        padding: 24px 0;
+      }
+
+      .card {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 22px 18px;
+        border-radius: 28px;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.9),
+          rgba(250, 246, 240, 0.96)
+        );
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow-soft);
+      }
+
+      @media (min-width: 760px) {
+        .card {
+          padding: 28px 26px;
+        }
+      }
+
+      .badge-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .badge {
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        color: #93743a;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .badge--evidence {
+        background: rgba(246, 236, 208, 0.8);
+        color: #b4892f;
+      }
+
+      .hint {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .subhint {
+        margin: 12px 0 0;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .subhint a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .clue-text {
+        margin: 12px 0 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(1.55rem, 5.2vw, 2.3rem);
+        line-height: 1.35;
+        color: #2b2725;
+      }
+
+      .clue-text p {
+        margin: 0;
+      }
+
+      .clue-pre {
+        margin: 0;
+        font: inherit;
+        white-space: pre;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .clue-media {
+        margin-top: 14px;
+        border-radius: 22px;
+        overflow: hidden;
+        border: 1px solid var(--line-soft);
+        background: rgba(255, 255, 255, 0.92);
+      }
+
+      .clue-media img {
+        display: block;
+        width: 100%;
+        height: auto;
+        cursor: zoom-in;
+      }
+
+      .clue-media svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        cursor: zoom-in;
+      }
+
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(20, 18, 17, 0.72);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        padding: 18px;
+      }
+
+      .lightbox[data-open="true"] {
+        display: flex;
+      }
+
+      .lightbox-inner {
+        width: min(980px, 100%);
+        max-height: calc(100vh - 60px);
+        position: relative;
+      }
+
+      .lightbox-media {
+        border-radius: 22px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .lightbox-media img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: calc(100vh - 60px);
+        object-fit: contain;
+        cursor: zoom-out;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: rgba(35, 32, 31, 0.78);
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+      }
+
+      .lightbox-close:focus {
+        outline: 2px solid rgba(215, 178, 83, 0.7);
+        outline-offset: 2px;
+      }
+
+      .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 46px;
+        height: 46px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: rgba(35, 32, 31, 0.62);
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+      }
+
+      .lightbox-nav:focus {
+        outline: 2px solid rgba(215, 178, 83, 0.7);
+        outline-offset: 2px;
+      }
+
+      .lightbox-prev {
+        left: -12px;
+      }
+
+      .lightbox-next {
+        right: -12px;
+      }
+
+      @media (max-width: 520px) {
+        .lightbox-prev {
+          left: 6px;
+        }
+
+        .lightbox-next {
+          right: 6px;
+        }
+
+        .lightbox-close {
+          right: 6px;
+        }
+      }
+
+      .media-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .media-grid .clue-media {
+        margin-top: 0;
+        transform: translate3d(0, 0, 0) rotate(-0.4deg);
+        box-shadow: 0 18px 40px rgba(109, 91, 71, 0.14);
+      }
+
+      .media-grid .clue-media:nth-child(2) {
+        transform: translate3d(0, 0, 0) rotate(0.6deg);
+      }
+
+      .media-grid .clue-media:nth-child(3) {
+        transform: translate3d(0, 0, 0) rotate(-0.2deg);
+      }
+
+      .drift-in {
+        opacity: 0;
+        transform: translate3d(0, 18px, 0);
+        transition: opacity 700ms ease, transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .drift-in.is-visible {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+
+      @media (min-width: 640px) {
+        .media-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          align-items: start;
+        }
+      }
+
+      .scroll-hint {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 10px 18px 26px;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .scroll-hint strong {
+        color: #5a514b;
+      }
+
+      .cta-row {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 16px;
+      }
+
+      .cta-button {
+        border: 1px solid rgba(233, 225, 213, 0.95);
+        background: rgba(255, 252, 246, 0.85);
+        color: #5b514a;
+        font-family: "Nunito", system-ui, sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        padding: 10px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      .cta-button:hover {
+        background: rgba(255, 252, 246, 0.95);
+      }
+
+      .guess-title {
+        margin: 10px 0 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(2rem, 6vw, 2.6rem);
+        line-height: 1.1;
+        color: #2b2725;
+      }
+
+      .guess-form {
+        margin-top: 16px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .guess-form label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        color: #5f5751;
+        margin-bottom: 6px;
+      }
+
+      .guess-form input {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(233, 225, 213, 0.95);
+        background: rgba(255, 255, 255, 0.8);
+        font: inherit;
+        color: var(--text-main);
+      }
+
+      .guess-form button[type="submit"] {
+        width: 100%;
+        border: 1px solid rgba(215, 178, 83, 0.5);
+        background: linear-gradient(to bottom, rgba(246, 236, 208, 0.95), rgba(246, 236, 208, 0.75));
+        color: #6f5426;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        padding: 12px 14px;
+        border-radius: 18px;
+        cursor: pointer;
+      }
+
+      .guess-form button[type="submit"]:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      .message {
+        margin-top: 12px;
+        padding: 12px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(233, 225, 213, 0.95);
+        background: rgba(255, 255, 255, 0.7);
+        color: #5f5751;
+      }
+
+      .message:empty {
+        display: none;
+      }
+
+      .message--error {
+        border-color: rgba(182, 85, 85, 0.38);
+        background: rgba(243, 215, 215, 0.35);
+        color: #7b3e3e;
+      }
+
+      .message--success {
+        border-color: rgba(63, 123, 94, 0.35);
+        background: rgba(221, 243, 231, 0.45);
+        color: #2f6b4f;
+      }
+
+      .error-page {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 40px 18px;
+      }
+
+      .error-card {
+        width: min(720px, 100%);
+        background: rgba(255, 252, 246, 0.9);
+        border: 1px solid rgba(233, 225, 213, 0.95);
+        border-radius: 26px;
+        box-shadow: 0 22px 42px rgba(109, 91, 71, 0.14);
+        padding: 26px 20px;
+        text-align: center;
+      }
+
+      .error-card h1 {
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(2.4rem, 10vw, 3.4rem);
+        line-height: 1.05;
+        color: #2b2725;
+      }
+
+      .error-card p {
+        margin: 14px 0 0;
+        color: #5f5751;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="shell">
+      <div class="sky" aria-hidden="true">
+        <div class="cloud cloud--1"></div>
+        <div class="cloud cloud--2"></div>
+        <div class="cloud cloud--3"></div>
+        <div class="cloud cloud--4"></div>
+        <div class="star star--1">★</div>
+        <div class="star star--2">★</div>
+        <div class="star star--3">★</div>
+        <div class="sparkles">✦ ✦ ✦</div>
+      </div>
+
+      <header class="header">
+        <p class="eyebrow">Baby Elias’s Name Game</p>
+        <h1>Welcome! We are so glad you are here.</h1>
+        <p class="header-copy">
+          We are thrilled to finally share that our little one’s name will be <span class="elias-name">Elias</span>, and he’ll be arriving into our arms very soon!
+          <br /><br />
+          The celebration is taking flight, and we wanted to bring the best part of the party directly to your screen! To share a bit of the baby shower magic, we’ve prepared a special challenge for our family and friends abroad. Your mission (should you choose to accept it) is to guess Baby Elias’s second name using the clues below.
+          <br /><br />
+          The first person to solve the mystery wins a special prize!
+        </p>
+      </header>
+
+      <section class="scroller" aria-label="Clues">
+        <article class="clue" id="invitations">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge badge--evidence">HELPFUL EVIDENCE</span>
+              <span class="hint">Look Between the Lines</span>
+            </div>
+
+            <div class="clue-text drift-in" data-drift="evidence">
+              <p>
+                Our journey starts with the invitations. While they look like simple keepsakes, they actually hide a few secrets that will help you solve the puzzles ahead.
+              </p>
+            </div>
+
+            <p class="subhint drift-in" data-drift="evidence">Tap any invitation to open it full-size (and swipe to see the rest).</p>
+
+            <div class="media-grid" aria-label="Invitations">
+              <div class="clue-media">
+                <img src="./assets/invite1.jpg" alt="Invitation 1" loading="lazy" decoding="async" />
+              </div>
+              <div class="clue-media">
+                <img src="./assets/invite2.jpg" alt="Invitation 2" loading="lazy" decoding="async" />
+              </div>
+              <div class="clue-media">
+                <img src="./assets/invite3.jpg" alt="Invitation 3" loading="lazy" decoding="async" />
+              </div>
+            </div>
+
+            <p class="scroll-hint">Keep scrolling</p>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-1">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 1</span>
+              <span class="hint">Scroll for the next clue</span>
+            </div>
+
+            <div class="clue-text">
+              <p>
+                Across three pages, a gentle wind blows,<br />
+                Watch the lowest cloud to see where it goes.<br />
+                When the fluffy white curtain is pulled from the night,<br />
+                What shape do the hidden stars make in the light?
+              </p>
+            </div>
+
+            <p class="subhint">(hint: Use the <a href="#invitations" class="invitations-link">invitations</a> to investigate)</p>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-2">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 2</span>
+              <span class="hint">Keep going</span>
+            </div>
+
+            <div class="clue-text">
+              <p>
+                Up in the air where the elephant flies,<br />
+                Look at the fabric with very close eyes.<br />
+                Woven right into the blue and white flight,<br />
+                A sign from the stars is hiding in sight.
+              </p>
+            </div>
+
+            <p class="subhint">(hint: Use the <a href="#invitations" class="invitations-link">invitations</a> to investigate)</p>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-3">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 3</span>
+              <span class="hint">Keep going</span>
+            </div>
+
+            <div class="clue-text">
+              <p>
+                A tiny gold hat on our grey little friend,<br />
+                Is a royal clue to help you reach the end.<br />
+                The passenger wears it, but everyone knows,<br />
+                To whom in the wild the grand title goes.
+              </p>
+            </div>
+
+            <p class="subhint">(hint: Use the <a href="#invitations" class="invitations-link">invitations</a> to investigate)</p>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-4">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 4</span>
+              <span class="hint">Keep going</span>
+            </div>
+
+            <div class="clue-text">
+              <p>
+                On the invite you hold, it is penned in the script,<br />
+                A solitary notion where the wind has just tripped.<br />
+                Shatter the quiet of this single word,<br />
+                And let a new order of letters be heard.
+              </p>
+            </div>
+
+            <p class="subhint">(hint: Use the <a href="#invitations" class="invitations-link">invitations</a> to investigate)</p>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-5">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 5</span>
+              <span class="hint">Keep going</span>
+            </div>
+
+            <div class="clue-text">
+              <p>
+                Seek out the virtual bookshelf online,<br />
+                Where authors and stories are meant to align.<br />
+                But look very closely at how they appear,<br />
+                For a few foreign accents have no business here.<br />
+                Pull out the symbols that carry this weight,<br />
+                To unlock the puzzle and open the gate.
+              </p>
+            </div>
+
+            <p class="subhint">
+              Hint: <a href="#" class="diglib-link">Click here to see Baby Elias's Digital library</a>.
+            </p>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-6">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 6</span>
+              <span class="hint">Keep going</span>
+            </div>
+
+            <div class="clue-text">
+              <p>
+                Not every book shown is a quick toddler's tale,<br />
+                One heavy adventure steps into the gale.<br />
+                He won’t read it yet, but the reason it’s planned,<br />
+                Is the fierce, golden guardian watching the land.
+              </p>
+            </div>
+
+            <p class="subhint">
+              Hint: <a href="#" class="diglib-link">Click here to see Baby Elias's Digital library</a>.
+            </p>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-7">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 7</span>
+              <span class="hint">Keep going</span>
+            </div>
+
+            <div class="clue-media">
+              <img src="./assets/5.png" alt="Clue 7 image" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-8">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 8</span>
+              <span class="hint">Keep scrolling</span>
+            </div>
+
+            <div class="clue-media">
+              <img src="./assets/1.png" alt="Clue 8 image" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-9">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 9</span>
+              <span class="hint">Keep scrolling</span>
+            </div>
+
+            <div class="clue-media">
+              <img src="./assets/2.png" alt="Clue 9 image" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-10">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 10</span>
+              <span class="hint">Keep going</span>
+            </div>
+
+            <div class="clue-media">
+              <img src="./assets/6.png" alt="Clue 10 image" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-11">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 11</span>
+              <span class="hint">Keep scrolling</span>
+            </div>
+
+            <div class="clue-media">
+              <img src="./assets/3.png" alt="Clue 11 image" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-12">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 12</span>
+              <span class="hint">Keep going</span>
+            </div>
+
+            <div class="clue-text">
+              <p>
+                V O R Z H O V L M<br /><br />
+                Use an ancient mirror, the first shall be last and the last shall be first.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-13">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 13</span>
+              <span class="hint">Keep going</span>
+            </div>
+
+            <div class="clue-text">
+              <p>
+                I blend into the background, a master of disguise,<br />
+                Changing every color right before your very eyes.<br />
+                My title holds a secret, attached right to the tail,<br />
+                Remove the front entirely to see the name unveil.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-14">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 14</span>
+              <span class="hint">Keep scrolling</span>
+            </div>
+
+            <div class="clue-media">
+              <img src="./assets/4.png" alt="Clue 14 image" loading="lazy" decoding="async" />
+            </div>
+
+            <div class="clue-text">
+              <p>
+                Two names lie anchored on the board,<br />
+                but one more must be found, Use the letters on your rack to place his name right down.<br />
+                It hooks a single letter that is already on the ground,<br />
+                For exactly 90 points total, what name have you now found?
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-15">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue 15</span>
+              <span class="hint">Final clue</span>
+            </div>
+
+            <div class="clue-text">
+              <p>
+                2.2 - 3.11 - 4.2 - 1.2 - 5.10 - 2.1 - 4.6 - 1.9 - 3.8<br /><br />
+                His digital library is already set,<br />
+                But his full secret name isn't posted up yet.<br />
+                To crack the code and find where it lives,<br />
+                Look at the online shelf we’re starting to build.
+              </p>
+            </div>
+
+            <p class="subhint">
+              Hint: <a href="#" class="diglib-link">Click here to see Baby Elias's Digital library</a>.
+            </p>
+          </div>
+        </article>
+
+        <article class="clue" id="guess-entry">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Your guess</span>
+              <span class="hint">Ready to submit?</span>
+            </div>
+
+            <h2 class="guess-title">Enter your guess</h2>
+
+            <form class="guess-form" id="clue-guess-form">
+              <div>
+                <label for="clue-guess-name">Baby Elias's second name</label>
+                <input id="clue-guess-name" name="guessName" type="text" required maxlength="120" placeholder="Type the name you think it is" />
+              </div>
+
+              <div>
+                <label for="clue-person-name">Your name</label>
+                <input id="clue-person-name" name="personName" type="text" required maxlength="80" placeholder="Your name" />
+              </div>
+
+              <div>
+                <button type="submit">Send guess</button>
+              </div>
+            </form>
+
+            <div id="clue-guess-message" class="message" aria-live="polite"></div>
+          </div>
+        </article>
+
+        <article class="clue" id="clue-template" aria-hidden="true" style="display: none;">
+          <div class="card">
+            <div class="badge-row">
+              <span class="badge">Clue X</span>
+              <span class="hint">Keep scrolling</span>
+            </div>
+
+            <div class="clue-media">
+              <img src="./assets/your-image.png" alt="Clue image" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <p class="scroll-hint">
+        Tip: on mobile, a gentle swipe will “snap” to the next clue.
+      </p>
+    </main>
+
+    <div class="lightbox" id="lightbox" data-open="false" role="dialog" aria-modal="true" aria-label="Zoomed image">
+      <div class="lightbox-inner" role="document">
+        <button class="lightbox-close" type="button" id="lightboxClose" aria-label="Close zoomed image">×</button>
+        <button class="lightbox-nav lightbox-prev" type="button" id="lightboxPrev" aria-label="Previous image">‹</button>
+        <button class="lightbox-nav lightbox-next" type="button" id="lightboxNext" aria-label="Next image">›</button>
+        <div class="lightbox-media">
+          <img id="lightboxImg" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        function resolveRouteKey() {
+          var raw = (window.location.search || "").replace(/^\?/, "").trim();
+          if (!raw) return "";
+
+          if (raw.indexOf("=") !== -1) {
+            var params = new URLSearchParams(window.location.search);
+            return (params.get("key") || params.get("sheet") || params.get("group") || "").trim().toLowerCase();
+          }
+
+          return raw.toLowerCase();
+        }
+
+        var routeKey = resolveRouteKey();
+        var ROUTES = {
+          fambam: {
+            guessApiUrl: "https://script.google.com/macros/s/AKfycbz-6LEmFMKzDqmH3sBdeG8z5QiyGxeZTVVnZyo0pL3IA8p1SGcNERvUxbtfSyUN9LE1/exec",
+          },
+          esguerra: {
+            guessApiUrl: "https://script.google.com/macros/s/AKfycbyM5dUtszYts0YwAckZyxSVYHAvsWrEL9qsL7b_JabZAIl_ISVVjKpm6yeoJybfZls4/exec",
+          },
+        };
+
+        var activeRoute = ROUTES[routeKey];
+        if (!activeRoute || !activeRoute.guessApiUrl || String(activeRoute.guessApiUrl).indexOf("YOUR_") === 0) {
+          document.title = "404 Not Found";
+          document.body.innerHTML =
+            '<div class="error-page"><div class="error-card"><h1>404</h1><p>This page is not available.</p></div></div>';
+          return;
+        }
+
+        const GUESS_API_URL = activeRoute.guessApiUrl;
+        const STORAGE_KEY_PERSON_NAME = "elias_guess_person_name";
+
+        var lightbox = document.getElementById("lightbox");
+        var lightboxImg = document.getElementById("lightboxImg");
+        var lightboxClose = document.getElementById("lightboxClose");
+        var lightboxPrev = document.getElementById("lightboxPrev");
+        var lightboxNext = document.getElementById("lightboxNext");
+        if (!lightbox || !lightboxImg || !lightboxClose || !lightboxPrev || !lightboxNext) return;
+
+        var driftTargets = Array.prototype.slice.call(document.querySelectorAll("[data-drift='evidence']"));
+        if (driftTargets.length) {
+          if ("IntersectionObserver" in window) {
+            var driftObserver = new IntersectionObserver(
+              function (entries, observer) {
+                entries.forEach(function (entry) {
+                  if (!entry.isIntersecting) return;
+                  entry.target.classList.add("is-visible");
+                  observer.unobserve(entry.target);
+                });
+              },
+              { root: null, threshold: 0.25 }
+            );
+            driftTargets.forEach(function (el) {
+              driftObserver.observe(el);
+            });
+          } else {
+            driftTargets.forEach(function (el) {
+              el.classList.add("is-visible");
+            });
+          }
+        }
+
+        var lastActive = null;
+
+        function getMediaSrc(el) {
+          if (!el) return "";
+          if (el.tagName && el.tagName.toLowerCase() === "img") {
+            return el.currentSrc || el.src || "";
+          }
+
+          if (el.tagName && el.tagName.toLowerCase() === "svg") {
+            try {
+              var xml = new XMLSerializer().serializeToString(el);
+              return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(xml);
+            } catch (err) {
+              return "";
+            }
+          }
+
+          return "";
+        }
+
+        function getMediaAlt(el) {
+          if (!el) return "Zoomed image";
+          if (el.tagName && el.tagName.toLowerCase() === "img") {
+            return el.alt || "Zoomed image";
+          }
+
+          if (el.tagName && el.tagName.toLowerCase() === "svg") {
+            return el.getAttribute("aria-label") || "Zoomed image";
+          }
+
+          return "Zoomed image";
+        }
+
+        function collectImages() {
+          return Array.prototype.slice
+            .call(document.querySelectorAll(".clue-media img, .clue-media svg"))
+            .filter(function (img) {
+              return img && getMediaSrc(img);
+            })
+            .map(function (img) {
+              return {
+                el: img,
+                src: getMediaSrc(img),
+                alt: getMediaAlt(img),
+              };
+            });
+        }
+
+        function collectDigLibImages() {
+          return [
+            {
+              el: null,
+              src: "./assets/diglib.png",
+              alt: "Baby Elias's Digital library",
+            },
+          ];
+        }
+
+        function collectInvitationImages() {
+          var root = document.getElementById("invitations");
+          if (!root) return [];
+          return Array.prototype.slice
+            .call(root.querySelectorAll(".clue-media img"))
+            .filter(function (img) {
+              return img && (img.currentSrc || img.src);
+            })
+            .map(function (img) {
+              return {
+                el: img,
+                src: img.currentSrc || img.src,
+                alt: img.alt || "Invitation",
+              };
+            });
+        }
+
+        var images = collectImages();
+        var currentIndex = -1;
+
+        function showIndex(nextIndex) {
+          if (!images.length) return;
+          var len = images.length;
+          currentIndex = ((nextIndex % len) + len) % len;
+          lightboxImg.src = images[currentIndex].src;
+          lightboxImg.alt = images[currentIndex].alt;
+        }
+
+        function showPrev() {
+          if (lightbox.dataset.open !== "true") return;
+          showIndex(currentIndex - 1);
+        }
+
+        function showNext() {
+          if (lightbox.dataset.open !== "true") return;
+          showIndex(currentIndex + 1);
+        }
+
+        function openLightbox(imgEl) {
+          if (!imgEl || !imgEl.getAttribute) return;
+          lastActive = document.activeElement;
+          images = collectImages();
+          var clickedSrc = getMediaSrc(imgEl);
+          var idx = images.findIndex(function (item) {
+            return item.src === clickedSrc;
+          });
+          if (idx < 0) idx = 0;
+
+          showIndex(idx);
+          lightbox.dataset.open = "true";
+          document.body.style.overflow = "hidden";
+          lightboxClose.focus();
+        }
+
+        function openInvitationGallery() {
+          lastActive = document.activeElement;
+          images = collectInvitationImages();
+          if (!images.length) return;
+          showIndex(0);
+          lightbox.dataset.open = "true";
+          document.body.style.overflow = "hidden";
+          lightboxClose.focus();
+        }
+
+        function openDigLibGallery() {
+          lastActive = document.activeElement;
+          images = collectDigLibImages();
+          if (!images.length) return;
+          showIndex(0);
+          lightbox.dataset.open = "true";
+          document.body.style.overflow = "hidden";
+          lightboxClose.focus();
+        }
+
+        function closeLightbox() {
+          if (lightbox.dataset.open !== "true") return;
+          lightbox.dataset.open = "false";
+          lightboxImg.removeAttribute("src");
+          currentIndex = -1;
+          document.body.style.overflow = "";
+          if (lastActive && lastActive.focus) lastActive.focus();
+          lastActive = null;
+        }
+
+        document.addEventListener("click", function (e) {
+          var img = e.target && e.target.closest ? e.target.closest(".clue-media img, .clue-media svg") : null;
+          if (img) {
+            e.preventDefault();
+            openLightbox(img);
+            return;
+          }
+
+          var inviteLink = e.target && e.target.closest ? e.target.closest("a.invitations-link") : null;
+          if (inviteLink) {
+            e.preventDefault();
+            openInvitationGallery();
+            return;
+          }
+
+          var digLibLink = e.target && e.target.closest ? e.target.closest("a.diglib-link") : null;
+          if (digLibLink) {
+            e.preventDefault();
+            openDigLibGallery();
+          }
+        });
+
+        lightboxClose.addEventListener("click", function () {
+          closeLightbox();
+        });
+
+        lightboxPrev.addEventListener("click", function () {
+          showPrev();
+        });
+
+        lightboxNext.addEventListener("click", function () {
+          showNext();
+        });
+
+        lightbox.addEventListener("click", function (e) {
+          if (e.target === lightbox || e.target === lightboxImg) {
+            closeLightbox();
+          }
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closeLightbox();
+          if (lightbox.dataset.open !== "true") return;
+          if (e.key === "ArrowLeft") showPrev();
+          if (e.key === "ArrowRight") showNext();
+        });
+
+        var startX = 0;
+        var startY = 0;
+        var touchActive = false;
+        var swipeThreshold = 40;
+
+        lightbox.addEventListener(
+          "touchstart",
+          function (e) {
+            if (lightbox.dataset.open !== "true") return;
+            if (!e.touches || !e.touches.length) return;
+            touchActive = true;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+          },
+          { passive: true }
+        );
+
+        lightbox.addEventListener(
+          "touchend",
+          function (e) {
+            if (!touchActive || lightbox.dataset.open !== "true") return;
+            touchActive = false;
+            if (!e.changedTouches || !e.changedTouches.length) return;
+            var endX = e.changedTouches[0].clientX;
+            var endY = e.changedTouches[0].clientY;
+            var dx = endX - startX;
+            var dy = endY - startY;
+            if (Math.abs(dx) < swipeThreshold) return;
+            if (Math.abs(dx) < Math.abs(dy)) return;
+            if (dx > 0) showPrev();
+            else showNext();
+          },
+          { passive: true }
+        );
+
+        var guessForm = document.getElementById("clue-guess-form");
+        var guessMessage = document.getElementById("clue-guess-message");
+
+        function setGuessMessage(text, type) {
+          if (!guessMessage) return;
+          guessMessage.textContent = text || "";
+          guessMessage.className = "message";
+          if (!text) return;
+          if (type === "error") {
+            guessMessage.classList.add("message--error");
+          } else if (type === "success") {
+            guessMessage.classList.add("message--success");
+          }
+        }
+
+        async function addGuessToSheet(payload) {
+          if (!GUESS_API_URL || GUESS_API_URL.startsWith("YOUR_APPS_SCRIPT")) {
+            throw new Error("Guess API URL not configured.");
+          }
+
+          let res;
+          try {
+            const body = new URLSearchParams({
+              action: "guess",
+              guess: payload.guess,
+              person: payload.person || "",
+              timestamp: new Date().toISOString(),
+            });
+
+            res = await fetch(GUESS_API_URL, {
+              method: "POST",
+              body,
+            });
+          } catch (err) {
+            throw new Error(`Network error while calling Guess API: ${err.message}`);
+          }
+
+          const text = await res.text();
+
+          let data;
+          try {
+            data = text ? JSON.parse(text) : {};
+          } catch {
+            throw new Error(`Server returned invalid JSON: ${text.slice(0, 300)}`);
+          }
+
+          if (!res.ok) {
+            throw new Error(`HTTP ${res.status} ${res.statusText}`);
+          }
+
+          if (data.ok === false) {
+            throw new Error(data.error || "Unknown server error");
+          }
+
+          return data;
+        }
+
+        if (guessForm) {
+          var savedName = window.localStorage.getItem(STORAGE_KEY_PERSON_NAME);
+          if (savedName) {
+            guessForm.personName.value = savedName;
+          }
+
+          guessForm.personName.addEventListener("input", function () {
+            var value = guessForm.personName.value.trim();
+            if (!value) {
+              window.localStorage.removeItem(STORAGE_KEY_PERSON_NAME);
+              return;
+            }
+            window.localStorage.setItem(STORAGE_KEY_PERSON_NAME, value);
+          });
+
+          guessForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            var submitBtn = guessForm.querySelector('button[type="submit"]');
+            var guess = guessForm.guessName.value.trim();
+            var person = guessForm.personName.value.trim();
+
+            if (!guess || !person) {
+              setGuessMessage("Please enter your guess and your name.", "error");
+              return;
+            }
+
+            window.localStorage.setItem(STORAGE_KEY_PERSON_NAME, person);
+            setGuessMessage("", "info");
+
+            if (submitBtn) submitBtn.disabled = true;
+            try {
+              await addGuessToSheet({ guess, person });
+              setGuessMessage("Thank you! Your guess has been saved.", "success");
+              guessForm.guessName.value = "";
+              guessForm.guessName.focus();
+            } catch (error) {
+              console.error("Error saving guess", error);
+              setGuessMessage(
+                "Something went wrong saving your guess. Please try again in a moment. " + error.message,
+                "error"
+              );
+            } finally {
+              if (submitBtn) submitBtn.disabled = false;
+            }
+          });
+        }
+
+        var guessTarget = document.getElementById("guess-entry");
+        var clueCards = Array.prototype.slice
+          .call(document.querySelectorAll("article.clue"))
+          .filter(function (article) {
+            return article.id && article.id !== "guess-entry" && article.id !== "clue-template";
+          });
+
+        clueCards.forEach(function (article) {
+          var card = article.querySelector(".card");
+          if (!card) return;
+          if (card.querySelector(".cta-row")) return;
+
+          var row = document.createElement("div");
+          row.className = "cta-row";
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "cta-button";
+          btn.textContent = "Figured it out? Click here to enter your guess";
+          btn.addEventListener("click", function () {
+            if (guessTarget && guessTarget.scrollIntoView) {
+              guessTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+              var input = document.getElementById("clue-guess-name");
+              if (input && input.focus) {
+                setTimeout(function () {
+                  input.focus();
+                }, 250);
+              }
+            }
+          });
+          row.appendChild(btn);
+          card.appendChild(row);
+        });
+      })();
+    </script>
+  </body>
+</html>
