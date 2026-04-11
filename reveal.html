@@ -1288,8 +1288,8 @@
         const winners = Array.from(earliestByPerson.values());
 
         winners.sort((a, b) => {
-          const at = a.timestamp ? a.timestamp.getTime() : 0;
-          const bt = b.timestamp ? b.timestamp.getTime() : 0;
+          const at = a.timestamp ? a.timestamp.getTime() : Infinity;
+          const bt = b.timestamp ? b.timestamp.getTime() : Infinity;
           return at - bt;
         });
 
@@ -1307,28 +1307,25 @@
 
         winnerEmptyEl.classList.add("hidden");
 
-        const topWinners = winners.slice(0, 3);
-        const honorable = winners.slice(3);
+        const winner = winners[0];
+        const honorable = winners.slice(1);
 
-        topWinners.forEach((row, index) => {
+        {
           const li = document.createElement("li");
           li.className = "item";
 
-          const precision = row.timestamp ? pickPrecision(row.timestamp) : "minute";
-
-          const medal = index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉";
-          const placeLabel = index === 0 ? "Gold" : index === 1 ? "Silver" : "Bronze";
+          const precision = winner.timestamp ? pickPrecision(winner.timestamp) : "minute";
 
           li.innerHTML = `
-            <div class="item-icon" aria-hidden="true">${medal}</div>
+            <div class="item-icon" aria-hidden="true">🏆</div>
             <div class="item-main">
-              <p class="guess-title">${escapeText(row.person)}</p>
-              <p class="meta-line"><span>${placeLabel}</span>${row.timestamp ? ` • ${escapeText(formatTimestamp(row.timestamp, precision))}` : ""}</p>
+              <p class="guess-title">${escapeText(winner.person)}</p>
+              <p class="meta-line"><span>Winner</span>${winner.timestamp ? ` • ${escapeText(formatTimestamp(winner.timestamp, precision))}` : ""}</p>
             </div>
           `;
 
           winnerListEl.appendChild(li);
-        });
+        }
 
         if (!honorable.length) {
           honorableBlockEl.classList.add("hidden");
