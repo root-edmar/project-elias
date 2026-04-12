@@ -492,6 +492,11 @@
           reveal comes.
         </p>
 
+        <p class="small-hint" id="guess-closed-note" style="margin-top: 10px;">
+          Guessing is over. See the results here:
+          <a href="https://project-elias.edmar-ahmil-abraham.workers.dev/reveal">https://project-elias.edmar-ahmil-abraham.workers.dev/reveal</a>
+        </p>
+
         <form id="guess-form">
           <div>
             <label for="guess-name">Your guess *</label>
@@ -535,15 +540,28 @@
       const GUESS_API_URL = "https://script.google.com/macros/s/AKfycbzQWgpNV-5PkXpX_JxaUpGWh3ay6W8zmSbQTfYvoGOLOEy1t4nYl4gEJz0u7uQvomUu/exec";
 
       const STORAGE_KEY_PERSON_NAME = "elias_guess_person_name";
+      const RESULTS_URL = "https://project-elias.edmar-ahmil-abraham.workers.dev/reveal";
 
       const messageEl = document.getElementById("message");
       const formEl = document.getElementById("guess-form");
       const submitButton = formEl.querySelector('button[type="submit"]');
+      const guessClosedNoteEl = document.getElementById("guess-closed-note");
 
       function setMessage(text, type = "info") {
         messageEl.textContent = text || "";
         messageEl.className = "message";
         if (!text) return;
+        if (type === "error") {
+          messageEl.classList.add("message--error");
+        } else if (type === "success") {
+          messageEl.classList.add("message--success");
+        }
+      }
+
+      function setMessageHtml(html, type = "info") {
+        messageEl.innerHTML = html || "";
+        messageEl.className = "message";
+        if (!html) return;
         if (type === "error") {
           messageEl.classList.add("message--error");
         } else if (type === "success") {
@@ -599,6 +617,25 @@
         formEl.personName.value = savedPersonName;
       }
 
+      const guessesClosed = true;
+      if (guessesClosed) {
+        if (submitButton) submitButton.disabled = true;
+        if (formEl.guessName) formEl.guessName.disabled = true;
+        if (formEl.personName) formEl.personName.disabled = true;
+        if (guessClosedNoteEl) {
+          guessClosedNoteEl.innerHTML =
+            'Guessing is over. See the results here: <a href="' +
+            RESULTS_URL +
+            '">' +
+            RESULTS_URL +
+            "</a>";
+        }
+        setMessageHtml(
+          'Guessing is over. See the results here: <a href="' + RESULTS_URL + '">' + RESULTS_URL + "</a>",
+          "info"
+        );
+      }
+
       formEl.personName.addEventListener("input", () => {
         const value = formEl.personName.value.trim();
         if (!value) {
@@ -610,6 +647,14 @@
 
       formEl.addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        if (guessesClosed) {
+          setMessageHtml(
+            'Guessing is over. See the results here: <a href="' + RESULTS_URL + '">' + RESULTS_URL + "</a>",
+            "info"
+          );
+          return;
+        }
 
         const guess = formEl.guessName.value.trim();
         const person = formEl.personName.value.trim();

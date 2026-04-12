@@ -1419,12 +1419,35 @@
 
         var guessForm = document.getElementById("clue-guess-form");
         var guessMessage = document.getElementById("clue-guess-message");
+        var guessClosedNoteEl = document.getElementById("guess-closed-note");
+
+        function getResultsUrlForRoute(key) {
+          if (key === "fambam") {
+            return "https://project-elias.edmar-ahmil-abraham.workers.dev/clues-reveal?fambam";
+          }
+          if (key === "esguerra") {
+            return "https://project-elias.edmar-ahmil-abraham.workers.dev/clues-reveal?esguerra";
+          }
+          return "";
+        }
 
         function setGuessMessage(text, type) {
           if (!guessMessage) return;
           guessMessage.textContent = text || "";
           guessMessage.className = "message";
           if (!text) return;
+          if (type === "error") {
+            guessMessage.classList.add("message--error");
+          } else if (type === "success") {
+            guessMessage.classList.add("message--success");
+          }
+        }
+
+        function setGuessMessageHtml(html, type) {
+          if (!guessMessage) return;
+          guessMessage.innerHTML = html || "";
+          guessMessage.className = "message";
+          if (!html) return;
           if (type === "error") {
             guessMessage.classList.add("message--error");
           } else if (type === "success") {
@@ -1486,10 +1509,35 @@
             if (submitBtnClosed) submitBtnClosed.disabled = true;
             if (guessForm.guessName) guessForm.guessName.disabled = true;
             if (guessForm.personName) guessForm.personName.disabled = true;
-            setGuessMessage(
-              "Guess submissions are now closed. Baby Elias’s 2nd name will be revealed soon!",
-              "info"
-            );
+
+            var resultsUrl = getResultsUrlForRoute(routeKey);
+            var closedText = "Guess submissions are now closed.";
+            var closedHtml = "";
+            if (resultsUrl) {
+              closedText += " See the results here: " + resultsUrl;
+              closedHtml =
+                'Guess submissions are now closed. See the results here: <a href="' +
+                resultsUrl +
+                '">' +
+                resultsUrl +
+                "</a>";
+            } else {
+              closedText += " Baby Elias’s 2nd name will be revealed soon!";
+              closedHtml = closedText;
+            }
+
+            if (guessClosedNoteEl) {
+              if (closedHtml && resultsUrl) {
+                guessClosedNoteEl.innerHTML = closedHtml;
+              } else {
+                guessClosedNoteEl.textContent = closedText;
+              }
+            }
+            if (closedHtml && resultsUrl) {
+              setGuessMessageHtml(closedHtml, "info");
+            } else {
+              setGuessMessage(closedText, "info");
+            }
           }
 
           guessForm.personName.addEventListener("input", function () {
@@ -1505,10 +1553,26 @@
             event.preventDefault();
 
             if (guessesClosed) {
-              setGuessMessage(
-                "Guess submissions are now closed. Baby Elias’s 2nd name will be revealed soon!",
-                "info"
-              );
+              var resultsUrlClosed = getResultsUrlForRoute(routeKey);
+              var closedTextSubmit = "Guess submissions are now closed.";
+              var closedHtmlSubmit = "";
+              if (resultsUrlClosed) {
+                closedTextSubmit += " See the results here: " + resultsUrlClosed;
+                closedHtmlSubmit =
+                  'Guess submissions are now closed. See the results here: <a href="' +
+                  resultsUrlClosed +
+                  '">' +
+                  resultsUrlClosed +
+                  "</a>";
+              } else {
+                closedTextSubmit += " Baby Elias’s 2nd name will be revealed soon!";
+                closedHtmlSubmit = closedTextSubmit;
+              }
+              if (closedHtmlSubmit && resultsUrlClosed) {
+                setGuessMessageHtml(closedHtmlSubmit, "info");
+              } else {
+                setGuessMessage(closedTextSubmit, "info");
+              }
               return;
             }
 
