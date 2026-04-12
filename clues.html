@@ -1074,6 +1074,10 @@
 
             <h2 class="guess-title">Enter your guess</h2>
 
+            <p class="small-hint" id="guess-closed-note" style="text-align: center; margin: 10px 0 14px;">
+              Guess submissions are now closed. Baby Elias’s 2nd name will be revealed soon!
+            </p>
+
             <form class="guess-form" id="clue-guess-form">
               <div>
                 <label for="clue-guess-name">Baby Elias's second name</label>
@@ -1086,7 +1090,7 @@
               </div>
 
               <div>
-                <button type="submit">Send guess</button>
+                <button type="submit" disabled aria-disabled="true">Send guess</button>
               </div>
             </form>
 
@@ -1141,15 +1145,15 @@
         var routeKey = resolveRouteKey();
         var ROUTES = {
           fambam: {
-            guessApiUrl: "https://script.google.com/macros/s/AKfycbz-6LEmFMKzDqmH3sBdeG8z5QiyGxeZTVVnZyo0pL3IA8p1SGcNERvUxbtfSyUN9LE1/exec",
+            guessApiUrl: "https://script.google.com/macros/s/AKfycbwzrdvAif2gJGSLwkWI0KXMj6rpenCNT4bDkDdkvC-5gTCzKp8kblCJvodpburuiFPy/exec",
           },
           esguerra: {
-            guessApiUrl: "https://script.google.com/macros/s/AKfycbyM5dUtszYts0YwAckZyxSVYHAvsWrEL9qsL7b_JabZAIl_ISVVjKpm6yeoJybfZls4/exec",
+            guessApiUrl: "https://script.google.com/macros/s/AKfycby5_yDFQk_epLlhYqzJPCgGsYbC3EgpdXHwJPuYoMNiZ-dcu4hb09tcGzgtIjtKZlMZ/exec",
           },
         };
 
         var activeRoute = ROUTES[routeKey];
-        if (!activeRoute || !activeRoute.guessApiUrl || String(activeRoute.guessApiUrl).indexOf("YOUR_") === 0) {
+        if (!activeRoute || !activeRoute.guessApiUrl || activeRoute.guessApiUrl.startsWith("YOUR_")) {
           document.title = "404 Not Found";
           document.body.innerHTML =
             '<div class="error-page"><div class="error-card"><h1>404</h1><p>This page is not available.</p></div></div>';
@@ -1471,9 +1475,21 @@
         }
 
         if (guessForm) {
+          var guessesClosed = true;
           var savedName = window.localStorage.getItem(STORAGE_KEY_PERSON_NAME);
           if (savedName) {
             guessForm.personName.value = savedName;
+          }
+
+          if (guessesClosed) {
+            var submitBtnClosed = guessForm.querySelector('button[type="submit"]');
+            if (submitBtnClosed) submitBtnClosed.disabled = true;
+            if (guessForm.guessName) guessForm.guessName.disabled = true;
+            if (guessForm.personName) guessForm.personName.disabled = true;
+            setGuessMessage(
+              "Guess submissions are now closed. Baby Elias’s 2nd name will be revealed soon!",
+              "info"
+            );
           }
 
           guessForm.personName.addEventListener("input", function () {
@@ -1487,6 +1503,15 @@
 
           guessForm.addEventListener("submit", async function (event) {
             event.preventDefault();
+
+            if (guessesClosed) {
+              setGuessMessage(
+                "Guess submissions are now closed. Baby Elias’s 2nd name will be revealed soon!",
+                "info"
+              );
+              return;
+            }
+
             var submitBtn = guessForm.querySelector('button[type="submit"]');
             var guess = guessForm.guessName.value.trim();
             var person = guessForm.personName.value.trim();
